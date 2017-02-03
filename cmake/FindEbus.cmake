@@ -66,9 +66,9 @@ endmacro(Ebus_REPORT_NOT_FOUND)
 # Search user-installed locations first, so that we prefer user installs
 # to system installs where both exist.
 list(APPEND Ebus_CHECK_INCLUDE_DIRS
-    /opt/pleora/ebus_sdk/Ubuntu-12.04-x86_64/include)
+    /opt/pleora/ebus_sdk/Ubuntu-14.04-i686/include)
 list(APPEND Ebus_CHECK_LIBRARY_DIRS
-    /opt/pleora/ebus_sdk/Ubuntu-12.04-x86_64/lib)
+    /opt/pleora/ebus_sdk/Ubuntu-14.04-i686/lib)
 
 # Check general hints
 if(Ebus_HINTS AND EXISTS ${Ebus_HINTS})

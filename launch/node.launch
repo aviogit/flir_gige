@@ -1,11 +1,12 @@
+<?xml version="1.0"?>
 <launch>
     <!-- Common Interface -->
-    <arg name="device" default="192.168.1.11"/>
-    <arg name="rate" default="20"/>
+    <arg name="device" default="10.17.20.170"/>
+    <arg name="rate" default="30"/>
 
     <!-- Camera Settings -->
     <arg name="ip_address" default="$(arg device)"/>
-    <arg name="camera_name" default="flir_ax5"/>
+    <arg name="camera_name" default="flir_a35"/>
     <arg name="camera" default="thermal"/>
     <arg name="frame_id" default="$(arg camera)"/>
     <arg name="calib_url" default=""/>

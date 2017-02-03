@@ -5,7 +5,8 @@ add_definitions(-std=c++11 -Wall -Wno-unknown-pragmas)
 
 # Set library paths for pleora ebus sdk on 64-bit linux
 # For more information, see cmake/Findebus.cmake
-if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+#if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+if(TRUE)
     # Make CMake aware of the cmake folder for local FindXXX scripts.
     set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
     find_package(Ebus REQUIRED)
