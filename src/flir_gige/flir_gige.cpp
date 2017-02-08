@@ -137,6 +137,7 @@ void FlirGige::ConnectDevice() {
     throw std::runtime_error("Unable to connect to " + display_id());
   }
   param_array_ = device_->GetParameters();
+  
 }
 
 void FlirGige::OpenStream() {
@@ -160,6 +161,7 @@ void FlirGige::ConfigureStream() {
   // Configure device streaming destination
   device_gev->SetStreamDestination(stream_gev->GetLocalIPAddress(),
                                    stream_gev->GetLocalPort());
+  
 }
 
 void FlirGige::CreatePipeline() {
@@ -220,12 +222,18 @@ bool FlirGige::GrabImage(sensor_msgs::Image &image_msg,
   // Assemble image msg
   image_msg.height = cache_.height;
   image_msg.width = cache_.width;
+  
+  //std::cout << "cache_.bit = " << cache_.bit << std::endl;
+  
   if (cache_.bit == 2) {
     image_msg.encoding = sensor_msgs::image_encodings::MONO8;
     image_msg.step = image_msg.width;
+    //std::cout << "image_msg.encoding for cache_.bit == 2 -->  " << image_msg.encoding << std::endl;
+    
   } else {
     image_msg.encoding = sensor_msgs::image_encodings::MONO16;
     image_msg.step = image_msg.width * 2;
+    //std::cout << "image_msg.encoding for cache_.bit == 3 --> " << image_msg.encoding << std::endl;
   }
 
   const size_t data_size = image->GetImageSize();
@@ -233,6 +241,24 @@ bool FlirGige::GrabImage(sensor_msgs::Image &image_msg,
     image_msg.data.resize(data_size);
   }
   memcpy(&image_msg.data[0], image->GetDataPointer(), image->GetImageSize());
+  
+  
+  
+//   // prova per salvare immagini .bin
+//   
+//    // Read width, height.
+//                 
+//                 std::cout << "  W: " <<  image_msg.width << " H: " << image_msg.height << std::endl;
+//                 buffer->GetImage()->Alloc(image_msg.width, image_msg.height, buffer->GetImage()->GetPixelType());
+//                 if (buffer->GetBlockID()%50==0) {
+//                     char filename[]= "/Data/ros/prova";
+//                     std::string s=std::to_string(buffer->GetBlockID());
+//                     char const *schar=s.c_str();
+//                     strcat(filename, schar);
+//                     strcat(filename,".bin");
+//                     lBufferWriter.Store(buffer,filename);
+// 		}
+  
 
   // Release the buffer back to the pipeline
   pipeline_->ReleaseBuffer(buffer);
@@ -283,6 +309,7 @@ void FlirGige::SetAoi(int *width, int *height) const {
     param_array_->SetIntegerValue("Height", *height);
   }
 }
+
 
 void FlirGige::SetPixelFormat(bool raw) const {
   // Set digital output and pixel format

@@ -11,7 +11,7 @@
     <arg name="frame_id" default="$(arg camera)"/>
     <arg name="calib_url" default=""/>
     <arg name="fps" default="$(arg rate)"/>
-    <arg name="raw" default="false"/>
+    <arg name="raw" default="true"/>
 
     <!-- Node Settings -->
     <arg name="output" default="screen"/>
