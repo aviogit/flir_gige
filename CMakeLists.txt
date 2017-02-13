@@ -15,7 +15,7 @@ else()
 endif()
 
 find_package(catkin REQUIRED COMPONENTS
-    roscpp nodelet camera_base cv_bridge
+    roscpp nodelet dynamic_reconfigure camera_base cv_bridge
     )
 find_package(OpenCV)
 
