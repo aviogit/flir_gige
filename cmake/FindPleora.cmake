@@ -19,10 +19,6 @@ set( GENAPI_SEARCH_PATHS
    "$ENV{ProgramW6432}/GenICam_v2_4/library/CPP/lib/Win64_x64"
 )
 
-#list(APPEND PLEORA_ITEMS "include")
-#list(APPEND PLEORA_ITEMS "lib")
-#list(APPEND PLEORA_ITEMS "lib/genicam/bin/Linux")
-
 set(PLEORA_ITEMS  "include;lib;lib/genicam/bin/Linux")
 
 foreach(ITEM_COUNTER ${PLEORA_ITEMS})
@@ -33,50 +29,32 @@ foreach(ITEM_COUNTER ${PLEORA_ITEMS})
 			else()
 				set(ARCH "x86_64")
 			endif()
-			#MESSAGE("${DISTRO_COUNTER} ${BIT_COUNTER} ${ITEM_COUNTER} ${ARCH}")
+			MESSAGE("${DISTRO_COUNTER} ${BIT_COUNTER} ---${ITEM_COUNTER}--- ${ARCH}")
 
-			if (ITEM_COUNTER STREQUAL "include" OR ITEM_COUNTER STREQUAL "lib")
+			if (${ITEM_COUNTER} STREQUAL "include")
 				SET (TMP_PATH "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-${DISTRO_COUNTER}.04-${ARCH}/${ITEM_COUNTER}")
 				MESSAGE("${TMP_PATH}")
 				list(APPEND INCLUDE_SEARCH_PATHS ${TMP_PATH})
+			elseif (${ITEM_COUNTER} STREQUAL "lib")
+				SET (TMP_PATH "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-${DISTRO_COUNTER}.04-${ARCH}/${ITEM_COUNTER}")
+				MESSAGE("${TMP_PATH}")
+				list(APPEND LIBRARIES_SEARCH_PATHS ${TMP_PATH})
 			else()
 				SET (TMP_PATH "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-${DISTRO_COUNTER}.04-${ARCH}/${ITEM_COUNTER}_${BIT_COUNTER}_x${BIT_COUNTER}")
-				MESSAGE("${TMP_PATH}")
-				list(APPEND INCLUDE_SEARCH_PATHS ${TMP_PATH})
+				#MESSAGE("${TMP_PATH}")
+				list(APPEND GENAPI_SEARCH_PATHS ${TMP_PATH})
 				SET (TMP_PATH "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-${DISTRO_COUNTER}.04-${ARCH}/${ITEM_COUNTER}_${BIT_COUNTER}_ARM")
 				MESSAGE("${TMP_PATH}")
-				list(APPEND INCLUDE_SEARCH_PATHS ${TMP_PATH})
+				list(APPEND GENAPI_SEARCH_PATHS ${TMP_PATH})
 			endif()
 
 		endforeach(DISTRO_COUNTER)
 	endforeach(BIT_COUNTER)
 endforeach(ITEM_COUNTER)
 
-#${PLEORA_BASE_SEARCH_PATH}/Ubuntu-14.04-i686/include
-
-#math(EXPR <output variable> <math expression>)
-
-#foreach(loop_var RANGE start stop [step])
-
-#set( INCLUDE_SEARCH_PATHS
-#        "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-12.04-x86_64/include"
-#	"${PLEORA_BASE_SEARCH_PATH}/Ubuntu-14.04-x86_64/include"
-#	"$ENV{ProgramFiles}/Pleora Technologies Inc/eBUS SDK/Includes"
-#)
-#
-#set( LIBRARIES_SEARCH_PATHS
-#	"${PLEORA_BASE_SEARCH_PATH}/Ubuntu-12.04-x86_64/lib"
-#	"${PLEORA_BASE_SEARCH_PATH}/Ubuntu-14.04-x86_64/lib"
-#	"$ENV{ProgramFiles}/Pleora Technologies Inc/eBUS SDK/Libraries"
-#)
-#
-#set( GENAPI_SEARCH_PATHS
-#   "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-12.04-x86_64/lib/genicam/bin/Linux64_x64"
-#   "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-12.04-x86_64/lib/genicam/bin/Linux32_ARM"
-#   "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-14.04-x86_64/lib/genicam/bin/Linux64_x64"
-#   "${PLEORA_BASE_SEARCH_PATH}/Ubuntu-14.04-x86_64/lib/genicam/bin/Linux32_ARM"
-#   "$ENV{ProgramW6432}/GenICam_v2_4/library/CPP/lib/Win64_x64"
-#)
+MESSAGE("INCLUDE_SEARCH_PATHS: ${INCLUDE_SEARCH_PATHS}")
+MESSAGE("LIBRARIES_SEARCH_PATHS: ${LIBRARIES_SEARCH_PATHS}")
+MESSAGE("GENAPI_SEARCH_PATHS: ${GENAPI_SEARCH_PATHS}")
 
 # Find header files
 FIND_PATH(
