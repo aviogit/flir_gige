@@ -22,7 +22,7 @@ find_package(OpenCV)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 find_package(Pleora REQUIRED)
-if(Pleora_FOUND)
+if (Pleora_FOUND)
 	list(APPEND USER_INC  "${Pleora_INCLUDE_DIR}" )
 	list(APPEND LINK_LIBS "${Pleora_LIBRARY}" )
 
@@ -30,7 +30,7 @@ if(Pleora_FOUND)
 	#  Pleora_LIBRARIES - link these to use pleora eUSB SDK
 	#  Pleora_BASE_DIR - set env varivales to this to use pleora eUSB SDK
 
-	MESSAGE("Found Pleora - incs: ${Pleora_INCLUDE_DIRS} - libs: ${Pleora_LIBRARIES} - base dir: ${Pleora_BASE_DIR}")
+	#MESSAGE("Found Pleora - incs: ${Pleora_INCLUDE_DIRS} - libs: ${Pleora_LIBRARIES} - base dir: ${Pleora_BASE_DIR}")
 
 	set(HAVE_Pleora 1)
 else()
