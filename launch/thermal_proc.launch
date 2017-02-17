@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
     <!--Node Settings-->
     <arg name="camera" default="thermal"/>
