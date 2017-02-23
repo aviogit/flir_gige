@@ -12,7 +12,8 @@
     <arg name="calib_url" default=""/>
     <arg name="fps" default="$(arg rate)"/>
     <arg name="raw" default="true"/>
-    <arg name="nuc_mode" default="true"/>
+    <arg name="nuc_mode" default="1"/>
+    <arg name="nuc_intervalFrame" default="3600"/>
 
     <!-- Node Settings -->
     <arg name="output" default="screen"/>
@@ -30,7 +31,8 @@
         <param name="frame_id" type="string" value="$(arg frame_id)"/>
         <param name="fps" type="double" value="$(arg fps)"/>
         <param name="raw" type="bool" value="$(arg raw)"/>
-        <param name="nuc_mode" type="bool" value="$(arg nuc_mode)"/>
+        <param name="nuc_mode" type="int" value="$(arg nuc_mode)"/>
+	<param name="nuc_intervalFrame" type="int" value="$(arg nuc_intervalFrame)"/>
     </node>
 
     <!-- View -->

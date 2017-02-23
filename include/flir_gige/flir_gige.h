@@ -66,6 +66,7 @@ class FlirGige {
   void SetAoi(int *width, int *height) const;
   void SetPixelFormat(bool raw) const;
   void SetNucMode(int nuc) const;
+  void SetNucIntervalFrame(int nuc_intervalFrame) const;
   void DoNuc(bool& nuc) const;
 
   //  double GetSpotPixel(const cv::Mat &image) const;
