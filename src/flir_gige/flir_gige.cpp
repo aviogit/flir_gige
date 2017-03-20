@@ -10,6 +10,7 @@
 #include <PvGenParameterArray.h>
 #include <PvGenParameter.h>
 
+
 namespace flir_gige {
 
 FlirGige::FlirGige(const std::string &ip_address)
@@ -61,6 +62,7 @@ void FlirGige::StopAcquisition() {
 void FlirGige::Configure(FlirGigeDynConfig &config) {
   SetPixelFormat(config.raw);
   SetNucMode(config.nuc_mode);
+  SetNucIntervalFrame(config.nuc_intervalFrame);
   DoNuc(config.nuc_action);
 }
 
@@ -242,24 +244,6 @@ bool FlirGige::GrabImage(sensor_msgs::Image &image_msg,
   }
   memcpy(&image_msg.data[0], image->GetDataPointer(), image->GetImageSize());
   
-  
-  
-//   // prova per salvare immagini .bin
-//   
-//    // Read width, height.
-//                 
-//                 std::cout << "  W: " <<  image_msg.width << " H: " << image_msg.height << std::endl;
-//                 buffer->GetImage()->Alloc(image_msg.width, image_msg.height, buffer->GetImage()->GetPixelType());
-//                 if (buffer->GetBlockID()%50==0) {
-//                     char filename[]= "/Data/ros/prova";
-//                     std::string s=std::to_string(buffer->GetBlockID());
-//                     char const *schar=s.c_str();
-//                     strcat(filename, schar);
-//                     strcat(filename,".bin");
-//                     lBufferWriter.Store(buffer,filename);
-// 		}
-  
-
   // Release the buffer back to the pipeline
   pipeline_->ReleaseBuffer(buffer);
   return true;
@@ -324,6 +308,18 @@ void FlirGige::SetPixelFormat(bool raw) const {
 
 void FlirGige::SetNucMode(int nuc) const {
   param_array_->SetEnumValue("NUCMode", static_cast<int64_t>(nuc));
+  int64_t NUC_Value;
+  param_array_->GetEnumValue("NUCMode", NUC_Value);
+  std::cout << "NUC_Mode (0 = Manual, 1 = Automatic): " << NUC_Value << std::endl;
+}
+
+
+void FlirGige::SetNucIntervalFrame(int nuc_intervalFrame) const {
+  param_array_->SetIntegerValue("NUCIntervalFramesW", static_cast<int64_t>(nuc_intervalFrame));
+  
+  int64_t NUC_IntervalFrames;
+  param_array_->GetIntegerValue("NUCIntervalFrames", NUC_IntervalFrames);
+  std::cout << "NUC_IntervalFrames: " << NUC_IntervalFrames << std::endl;  
 }
 
 void FlirGige::DoNuc(bool &nuc) const {
